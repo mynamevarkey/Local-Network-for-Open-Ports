@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nmap Scan Report – 192.168.1.0/24</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #0d1117;
+      color: #c9d1d9;
+      padding: 30px 20px;
+    }
+    h1 { color: #58a6ff; font-size: 1.8rem; margin-bottom: 6px; }
+    .meta { font-size: 0.85rem; color: #8b949e; margin-bottom: 30px; }
+    .meta span { margin-right: 20px; }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+    }
+    .stat-card .num { font-size: 2rem; font-weight: bold; color: #58a6ff; }
+    .stat-card .label { font-size: 0.78rem; color: #8b949e; margin-top: 4px; }
+
+    .host-card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .host-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      background: #1c2128;
+      border-bottom: 1px solid #30363d;
+    }
+    .host-ip { font-size: 1.1rem; font-weight: bold; color: #58a6ff; }
+    .host-device { font-size: 0.82rem; color: #8b949e; }
+    .badge {
+      margin-left: auto;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+    .badge.up { background: #1a4731; color: #3fb950; border: 1px solid #3fb950; }
+
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      background: #21262d;
+      color: #8b949e;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      padding: 10px 16px;
+      text-align: left;
+    }
+    td { padding: 10px 16px; font-size: 0.88rem; border-bottom: 1px solid #21262d; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #1c2128; }
+
+    .state-open   { color: #3fb950; font-weight: bold; }
+    .state-filtered { color: #d29922; font-weight: bold; }
+    .state-closed { color: #8b949e; }
+
+    .risk-critical { color: #ff4444; font-weight: bold; }
+    .risk-high     { color: #f78166; font-weight: bold; }
+    .risk-medium   { color: #d29922; }
+    .risk-low      { color: #3fb950; }
+
+    .risk-section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .risk-section h2 { color: #f78166; margin-bottom: 14px; font-size: 1rem; }
+    .risk-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid #21262d;
+      font-size: 0.87rem;
+    }
+    .risk-item:last-child { border-bottom: none; }
+    .risk-badge {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: bold;
+      white-space: nowrap;
+      min-width: 70px;
+      text-align: center;
+    }
+    .rb-critical { background: #3d0000; color: #ff4444; border: 1px solid #ff4444; }
+    .rb-high     { background: #2d1b00; color: #f78166; border: 1px solid #f78166; }
+    .rb-medium   { background: #2d2000; color: #d29922; border: 1px solid #d29922; }
+
+    .rec-section {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .rec-section h2 { color: #58a6ff; margin-bottom: 14px; font-size: 1rem; }
+    .rec-item {
+      display: flex;
+      gap: 12px;
+      padding: 7px 0;
+      font-size: 0.87rem;
+      border-bottom: 1px solid #21262d;
+    }
+    .rec-item:last-child { border-bottom: none; }
+    .rec-num {
+      color: #58a6ff;
+      font-weight: bold;
+      min-width: 22px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #444c56;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔍 Nmap Network Scan Report</h1>
+  <div class="meta">
+    <span>📡 Network: <strong>192.168.1.0/24</strong></span>
+    <span>📅 Date: <strong>2026-04-09</strong></span>
+    <span>🛠 Tool: <strong>Nmap 7.95</strong></span>
+    <span>⚙️ Scan: <strong>TCP SYN (-sS -sV)</strong></span>
+    <span>⏱ Duration: <strong>12.75s</strong></span>
+  </div>
+
+  <!-- Summary Stats -->
+  <div class="summary-grid">
+    <div class="stat-card"><div class="num">256</div><div class="label">IPs Scanned</div></div>
+    <div class="stat-card"><div class="num">4</div><div class="label">Hosts Up</div></div>
+    <div class="stat-card"><div class="num">14</div><div class="label">Open Ports</div></div>
+    <div class="stat-card"><div class="num" style="color:#ff4444">1</div><div class="label">Critical Risks</div></div>
+    <div class="stat-card"><div class="num" style="color:#f78166">4</div><div class="label">High Risks</div></div>
+    <div class="stat-card"><div class="num" style="color:#d29922">4</div><div class="label">Medium Risks</div></div>
+  </div>
+
+  <!-- Host 1 -->
+  <div class="host-card">
+    <div class="host-header">
+      <div>
+        <div class="host-ip">192.168.1.1</div>
+        <div class="host-device">🖥 Likely: Router / Gateway &nbsp;|&nbsp; Latency: 0.0028s</div>
+      </div>
+      <span class="badge up">UP</span>
+    </div>
+    <table>
+      <thead><tr><th>Port</th><th>State</th><th>Service</th><th>Risk</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>21/tcp</td><td class="state-open">open</td><td>ftp</td><td class="risk-high">HIGH</td><td>Unencrypted; credentials sent in plaintext. Use SFTP instead.</td></tr>
+        <tr><td>22/tcp</td><td class="state-filtered">filtered</td><td>ssh</td><td class="risk-low">LOW</td><td>Blocked by firewall. Brute force risk if exposed.</td></tr>
+        <tr><td>23/tcp</td><td class="state-filtered">filtered</td><td>telnet</td><td class="risk-high">HIGH</td><td>Outdated, unencrypted protocol. Should be fully disabled.</td></tr>
+        <tr><td>53/tcp</td><td class="state-open">open</td><td>domain (DNS)</td><td class="risk-medium">MEDIUM</td><td>DNS service. Risk of DNS amplification attacks.</td></tr>
+        <tr><td>80/tcp</td><td class="state-open">open</td><td>http</td><td class="risk-medium">MEDIUM</td><td>Unencrypted web admin panel. Use HTTPS instead.</td></tr>
+        <tr><td>139/tcp</td><td class="state-filtered">filtered</td><td>netbios-ssn</td><td class="risk-medium">MEDIUM</td><td>Windows file sharing. Filtered but SMB-related.</td></tr>
+        <tr><td>443/tcp</td><td class="state-open">open</td><td>https</td><td class="risk-low">LOW</td><td>Encrypted web interface. Generally safe.</td></tr>
+        <tr><td>445/tcp</td><td class="state-filtered">filtered</td><td>microsoft-ds</td><td class="risk-high">HIGH</td><td>SMB – EternalBlue (MS17-010) exploit risk if unpatched.</td></tr>
+        <tr><td>8000/tcp</td><td class="state-open">open</td><td>http-alt</td><td class="risk-medium">MEDIUM</td><td>Alternate HTTP port – possibly an admin panel or IoT interface.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Host 2 -->
+  <div class="host-card">
+    <div class="host-header">
+      <div>
+        <div class="host-ip">192.168.1.33</div>
+        <div class="host-device">🖥 Likely: Server / Raspberry Pi / Smart Device &nbsp;|&nbsp; Latency: 0.0024s</div>
+      </div>
+      <span class="badge up">UP</span>
+    </div>
+    <table>
+      <thead><tr><th>Port</th><th>State</th><th>Service</th><th>Risk</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>22/tcp</td><td class="state-open">open</td><td>ssh</td><td class="risk-medium">MEDIUM</td><td>Brute force risk. Use SSH key auth; disable password login.</td></tr>
+        <tr><td>53/tcp</td><td class="state-open">open</td><td>domain (DNS)</td><td class="risk-medium">MEDIUM</td><td>DNS running on device — verify if intentional.</td></tr>
+        <tr><td>80/tcp</td><td class="state-filtered">filtered</td><td>http</td><td class="risk-low">LOW</td><td>Filtered by firewall. No direct exposure.</td></tr>
+        <tr><td>443/tcp</td><td class="state-filtered">filtered</td><td>https</td><td class="risk-low">LOW</td><td>Filtered by firewall. No direct exposure.</td></tr>
+        <tr><td>1900/tcp</td><td class="state-open">open</td><td>upnp</td><td class="risk-high">HIGH</td><td>UPnP can be exploited for unauthorized port forwarding and SSRF attacks.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Host 3 -->
+  <div class="host-card">
+    <div class="host-header">
+      <div>
+        <div class="host-ip">192.168.1.34</div>
+        <div class="host-device">🖥 Likely: Apache Tomcat Server &nbsp;|&nbsp; Latency: 0.0076s</div>
+      </div>
+      <span class="badge up">UP</span>
+    </div>
+    <table>
+      <thead><tr><th>Port</th><th>State</th><th>Service</th><th>Risk</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>8009/tcp</td><td class="state-open">open</td><td>ajp13</td><td class="risk-critical">CRITICAL</td><td>Apache JServ Protocol — vulnerable to Ghostcat (CVE-2020-1938). Allows file read/RCE.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Host 4 -->
+  <div class="host-card">
+    <div class="host-header">
+      <div>
+        <div class="host-ip">192.168.1.43</div>
+        <div class="host-device">🖥 Unknown Device &nbsp;|&nbsp; Latency: 0.0034s</div>
+      </div>
+      <span class="badge up">UP</span>
+    </div>
+    <table>
+      <thead><tr><th>Port</th><th>State</th><th>Service</th><th>Risk</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td colspan="5" style="color:#8b949e; text-align:center; padding:16px;">All 1000 scanned ports are in closed/ignored state. No exposure detected.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Risk Summary -->
+  <div class="risk-section">
+    <h2>⚠️ Security Risk Summary</h2>
+    <div class="risk-item"><span class="risk-badge rb-critical">CRITICAL</span><span>192.168.1.34:8009 — AJP13 (Ghostcat CVE-2020-1938) — Allows unauthenticated file read and potential Remote Code Execution on Apache Tomcat</span></div>
+    <div class="risk-item"><span class="risk-badge rb-high">HIGH</span><span>192.168.1.1:21 — FTP open — Credentials transmitted in plaintext, easily intercepted</span></div>
+    <div class="risk-item"><span class="risk-badge rb-high">HIGH</span><span>192.168.1.1:23 — Telnet filtered — Unencrypted legacy protocol; should be fully disabled</span></div>
+    <div class="risk-item"><span class="risk-badge rb-high">HIGH</span><span>192.168.1.1:445 — SMB filtered — Potential EternalBlue (MS17-010) exploitation if not patched</span></div>
+    <div class="risk-item"><span class="risk-badge rb-high">HIGH</span><span>192.168.1.33:1900 — UPnP open — Can be abused for unauthorized port mapping and SSRF attacks</span></div>
+    <div class="risk-item"><span class="risk-badge rb-medium">MEDIUM</span><span>192.168.1.1:53 — DNS open — Risk of DNS amplification/spoofing attacks</span></div>
+    <div class="risk-item"><span class="risk-badge rb-medium">MEDIUM</span><span>192.168.1.1:80 — HTTP open — Unencrypted admin panel, susceptible to MITM</span></div>
+    <div class="risk-item"><span class="risk-badge rb-medium">MEDIUM</span><span>192.168.1.33:22 — SSH open — Brute force risk without key-based auth</span></div>
+    <div class="risk-item"><span class="risk-badge rb-medium">MEDIUM</span><span>192.168.1.1:8000 — HTTP-alt open — Possible unsecured admin/IoT management interface</span></div>
+  </div>
+
+  <!-- Recommendations -->
+  <div class="rec-section">
+    <h2>🛡️ Recommendations</h2>
+    <div class="rec-item"><span class="rec-num">1</span><span>Immediately disable AJP (port 8009) on 192.168.1.34 or upgrade Apache Tomcat to patch Ghostcat (CVE-2020-1938)</span></div>
+    <div class="rec-item"><span class="rec-num">2</span><span>Replace FTP (port 21) with SFTP or FTPS to encrypt credentials in transit</span></div>
+    <div class="rec-item"><span class="rec-num">3</span><span>Fully disable Telnet (port 23) on the router — use SSH exclusively</span></div>
+    <div class="rec-item"><span class="rec-num">4</span><span>Disable UPnP (port 1900) on 192.168.1.33 if not explicitly required</span></div>
+    <div class="rec-item"><span class="rec-num">5</span><span>Restrict SMB (port 445) to internal trusted IPs via firewall rules; ensure MS17-010 is patched</span></div>
+    <div class="rec-item"><span class="rec-num">6</span><span>Enable SSH key-based authentication on 192.168.1.33 and disable password login</span></div>
+    <div class="rec-item"><span class="rec-num">7</span><span>Redirect HTTP (port 80) to HTTPS — disable unencrypted access to admin panels</span></div>
+    <div class="rec-item"><span class="rec-num">8</span><span>Restrict DNS (port 53) to internal queries only to prevent external amplification abuse</span></div>
+  </div>
+
+  <footer>Generated with Nmap 7.95 · Scan performed on 192.168.1.0/24 · 2026-04-09 · For authorized use only</footer>
+
+</body>
+</html>

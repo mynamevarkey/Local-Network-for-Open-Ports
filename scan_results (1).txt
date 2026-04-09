@@ -1,0 +1,72 @@
+# Nmap Scan Results - Local Network
+# Command: sudo nmap -sS -sV 192.168.1.0/24
+# Date: 2026-04-09 10:13 EDT
+# Tool: Nmap 7.95 (https://nmap.org)
+# Network Scanned: 192.168.1.0/24
+# Total Hosts Up: 4 | Total IPs Scanned: 256 | Scan Duration: 12.75 seconds
+
+==============================================================
+HOST: 192.168.1.1
+STATUS: Up (latency: 0.0028s)
+LIKELY DEVICE: Router / Gateway
+==============================================================
+PORT      STATE     SERVICE      RISK LEVEL
+21/tcp    open      ftp          HIGH   - Unencrypted file transfer, credentials sent in plaintext
+22/tcp    filtered  ssh          LOW    - Filtered by firewall, brute force risk if exposed
+23/tcp    filtered  telnet       HIGH   - Unencrypted, outdated protocol, should be disabled
+53/tcp    open      domain       MEDIUM - DNS service; potential for DNS amplification attacks
+80/tcp    open      http         MEDIUM - Unencrypted web interface, prone to interception
+139/tcp   filtered  netbios-ssn  MEDIUM - Windows file sharing; filtered but SMB-related
+443/tcp   open      https        LOW    - Encrypted web interface, generally safe
+445/tcp   filtered  microsoft-ds HIGH   - SMB; EternalBlue exploit risk if unpatched
+8000/tcp  open      http-alt     MEDIUM - Alternate HTTP port, possibly admin panel
+
+==============================================================
+HOST: 192.168.1.33
+STATUS: Up (latency: 0.0024s)
+LIKELY DEVICE: Server / Raspberry Pi / Smart Device
+==============================================================
+PORT      STATE     SERVICE  RISK LEVEL
+22/tcp    open      ssh      MEDIUM - Brute force risk; use key-based auth
+53/tcp    open      domain   MEDIUM - DNS service running; verify if intentional
+80/tcp    filtered  http     LOW    - Filtered by firewall
+443/tcp   filtered  https    LOW    - Filtered by firewall
+1900/tcp  open      upnp     HIGH   - UPnP can be exploited for port forwarding attacks
+
+==============================================================
+HOST: 192.168.1.34
+STATUS: Up (latency: 0.0076s)
+LIKELY DEVICE: Server / Tomcat Instance
+==============================================================
+PORT      STATE  SERVICE  RISK LEVEL
+8009/tcp  open   ajp13    CRITICAL - Apache JServ Protocol; vulnerable to Ghostcat (CVE-2020-1938)
+
+==============================================================
+HOST: 192.168.1.43
+STATUS: Up (latency: 0.0034s)
+LIKELY DEVICE: Unknown (all ports closed/filtered)
+==============================================================
+No open ports found in top 1000 scanned ports.
+
+==============================================================
+SUMMARY OF SECURITY RISKS
+==============================================================
+CRITICAL : 192.168.1.34:8009  - AJP13/Ghostcat vulnerability
+HIGH     : 192.168.1.1:21     - FTP plaintext credentials
+HIGH     : 192.168.1.1:23     - Telnet (should be disabled)
+HIGH     : 192.168.1.1:445    - SMB EternalBlue risk
+HIGH     : 192.168.1.33:1900  - UPnP exploitation risk
+MEDIUM   : 192.168.1.1:53     - DNS amplification
+MEDIUM   : 192.168.1.1:80     - Unencrypted HTTP
+MEDIUM   : 192.168.1.33:22    - SSH brute force risk
+
+==============================================================
+RECOMMENDATIONS
+==============================================================
+1. Disable FTP (port 21) - use SFTP instead
+2. Disable Telnet (port 23) - use SSH instead
+3. Patch Apache Tomcat if 192.168.1.34 runs it (Ghostcat CVE-2020-1938)
+4. Disable UPnP on router (port 1900) if not needed
+5. Configure firewall to restrict SMB (445) to trusted IPs only
+6. Enable SSH key authentication and disable password login
+7. Use HTTPS instead of HTTP for all web admin panels
